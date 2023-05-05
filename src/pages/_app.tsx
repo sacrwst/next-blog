@@ -1,17 +1,12 @@
-import "src/styles/globals.css";
 import type { AppProps } from "next/app";
-import Link from "next/link";
+import { DefaultLayout } from "src/components/ui/layout/DefaultLayout";
+import "src/styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="mx-auto max-w-prose">
-      <header>
-        <h1>
-          <Link href="/">Mayonaka.me</Link>
-        </h1>
-      </header>
+    <DefaultLayout>
       <Component {...pageProps} />
-    </div>
+    </DefaultLayout>
   );
 }
 
