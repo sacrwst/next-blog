@@ -1,29 +1,30 @@
 import { MicroCMSListResponse } from "microcms-js-sdk";
 import type { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { client } from "src/libs/client";
 
-type Articles = {
+type Blog = {
   title: string;
   body: string;
 };
 
-const Home: NextPage<MicroCMSListResponse<Articles>> = (props) => {
-  console.log(props);
-
+const Home: NextPage<MicroCMSListResponse<Blog>> = (props) => {
   return (
     <div>
       {props.contents.map((content) => (
-        <h2 key={content.id}>{content.title}</h2>
+        <Link key={content.id} href={`blog/${content.id}`} passHref>
+          <h2>{content.title}</h2>
+        </Link>
       ))}
     </div>
   );
 };
 
 export const getStaticProps: GetStaticProps<
-  MicroCMSListResponse<Articles>
+  MicroCMSListResponse<Blog>
 > = async () => {
   const data = await client.getList({
-    endpoint: "articles",
+    endpoint: "blog",
   });
   console.log(data);
 
