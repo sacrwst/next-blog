@@ -17,10 +17,14 @@ const Blog: NextPage<MicroCMSListResponse<Blog>> = (props) => {
               <a className="block overflow-hidden rounded-lg shadow-md shadow-gray-400">
                 <div className="relative h-40 w-full">
                   <Image
-                    src="/background.jpg"
-                    alt="img"
+                    src={
+                      content.thumbnail
+                        ? content.thumbnail.url
+                        : "/background.jpg"
+                    }
                     layout="fill"
                     objectFit="cover"
+                    alt="サムネイル"
                   />
                 </div>
                 <div className="min-h-[100px] px-4 py-2">
