@@ -1,12 +1,16 @@
-import Link from "next/link";
 import { MicroCMSListResponse } from "microcms-js-sdk";
 import { client } from "src/libs/client";
 import type { GetStaticProps, NextPage } from "next";
-import Image from "next/image";
+import { BlogCard } from "src/components/model/BlogCard";
 
 export type Blog = {
   title: string;
   body: string;
+  thumbnail?: {
+    url: string;
+    width: string;
+    height: string;
+  };
 };
 
 const Home: NextPage<MicroCMSListResponse<Blog>> = (props) => {
@@ -14,21 +18,7 @@ const Home: NextPage<MicroCMSListResponse<Blog>> = (props) => {
     <div>
       <div className="grid grid-cols-3 gap-6">
         {props.contents.map((content) => (
-          <Link key={content.id} href={`/blog/${content.id}`} passHref>
-            <a className="block overflow-hidden rounded-lg shadow-md shadow-gray-400">
-              <div className="relative h-40 w-full">
-                <Image
-                  src="/background.jpg"
-                  alt="img"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-              <div className="min-h-[100px] px-4 py-2">
-                <p className="font-semibold">{content.title}</p>
-              </div>
-            </a>
-          </Link>
+          <BlogCard key={content.id} content={content} />
         ))}
       </div>
       <div className="mt-10">
