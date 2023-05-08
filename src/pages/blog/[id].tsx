@@ -2,12 +2,15 @@ import { Blog } from "src/pages";
 import { client } from "src/libs/client";
 import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import classes from "src/pages/blog/BlogId.module.scss";
 import Image from "next/image";
 
 type Props = Blog & MicroCMSContentId & MicroCMSDate;
 
 const BlogId: NextPage<Props> = (props) => {
   return (
+    <div className="mt-10">
+      <h1 className="text-3xl font-bold">{props.title}</h1>
       <div className="relative mt-10 h-80">
         <Image
           src={props.thumbnail ? props.thumbnail.url : "/background.jpg"}
@@ -16,6 +19,10 @@ const BlogId: NextPage<Props> = (props) => {
           alt="サムネイル"
         />
       </div>
+      <div
+        dangerouslySetInnerHTML={{ __html: props.body }}
+        className={classes.blogId}
+      />
     </div>
   );
 };
