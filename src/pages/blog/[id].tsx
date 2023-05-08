@@ -4,6 +4,9 @@ import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import classes from "src/pages/blog/BlogId.module.scss";
 import Image from "next/image";
+import { load } from "cheerio";
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css";
 
 type Props = Blog & MicroCMSContentId & MicroCMSDate;
 
@@ -44,9 +47,18 @@ export const getStaticProps: GetStaticProps<Props, { id: string }> = async (
   context
 ) => {
   if (!context.params) return { notFound: true };
+
   const data = await client.getListDetail<Blog>({
     endpoint: "blog",
     contentId: context.params.id,
+  });
+
+  const $ = load(data.body);
+  $("pre code").each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text());
+    $(elm).html(result.value);
+    $(elm).addClass("hljs");
+    data.body = $.html();
   });
 
   return {
