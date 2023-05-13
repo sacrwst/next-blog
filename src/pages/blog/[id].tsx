@@ -12,12 +12,15 @@ type Props = Blog & MicroCMSContentId & MicroCMSDate;
 
 const BlogId: NextPage<Props> = (props) => {
   return (
-    <div className="mt-10">
-      <h1 className="text-3xl font-bold">{props.title}</h1>
-      <div className="relative mt-10 h-80">
+    <div className=" bg-white p-8">
+      <h1 className="bg-gradient-to-r from-purple-700 to-pink-600 p-6 text-3xl font-bold text-white">
+        {props.title}
+      </h1>
+      <div className="relative mt-10">
         <Image
           src={props.thumbnail ? props.thumbnail.url : "/background.jpg"}
-          layout="fill"
+          width={1000}
+          height={500}
           objectFit="cover"
           alt="サムネイル"
         />
@@ -58,6 +61,11 @@ export const getStaticProps: GetStaticProps<Props, { id: string }> = async (
     const result = hljs.highlightAuto($(elm).text());
     $(elm).html(result.value);
     $(elm).addClass("hljs");
+    data.body = $.html();
+  });
+
+  $("img").each((_, img) => {
+    $(img).replaceWith(`<div class="mb-10">${$.html(img)}</div>`);
     data.body = $.html();
   });
 
