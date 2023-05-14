@@ -37,15 +37,15 @@ const Home: NextPage<MicroCMSListResponse<Blog>> = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<
-  MicroCMSListResponse<Blog>
-> = async () => {
-  const data = await client.getList<Blog>({
-    endpoint: "blog",
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await client.getList({
+    endpoint: "pickup",
   });
 
   return {
-    props: data,
+    props: {
+      contents: data.contents[0].pickupBlog,
+    },
   };
 };
 
