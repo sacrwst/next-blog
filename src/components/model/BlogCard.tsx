@@ -16,7 +16,7 @@ type Props = {
 
 export const BlogCard = (props: Props) => {
   return (
-    <Link key={props.content.id} href={`/blog/${props.content.id}`} passHref>
+    <Link key={props.content.id} href={`/blog/${props.content.id}`}>
       <a className="block overflow-hidden rounded-lg shadow-md shadow-gray-400">
         <div className="relative h-40 w-full">
           <Image
@@ -30,7 +30,7 @@ export const BlogCard = (props: Props) => {
             alt="サムネイル"
           />
         </div>
-        <div className="min-h-[100px] px-4 py-2">
+        <div className="min-h-[100px] bg-white px-4 py-2">
           <p className="font-semibold">{props.content.title}</p>
         </div>
       </a>
